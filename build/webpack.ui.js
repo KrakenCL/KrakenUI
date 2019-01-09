@@ -29,13 +29,6 @@ const config = merge(base, {
             'process.env': {
                 NODE_ENV: '"production"'
             }
-        }),
-
-        // Minify with dead-code elimination
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
         })
     ]
 }, { clone: false });
