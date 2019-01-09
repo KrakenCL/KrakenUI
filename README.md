@@ -4,23 +4,23 @@ JS Frontend for KrakenCL server.
 Thanks Josephus Paye II for https://github.com/JosephusPaye/Keen-UI.
 
 ## Developing 
-Install node
+###Install node
 ```
 $ brew install node
 ```
-Clone project
 
+###Clone project
 ```
 $ git clone git@github.com:KrakenCL/KrakenUI.git
 ```
-Prepare package
+###Prepare package
 ```
 $ cd KrakenUI
 $ npm install
 ```
 
-Launch development environment
+###Launch development environment
 ```
 $ npm run-script build
-$ npm run-script build:dev
+$ npm run-script dev
 ```
