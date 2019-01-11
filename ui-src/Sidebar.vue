@@ -37,10 +37,9 @@
                         </li>
                     </ul>
                 </li>
-
+                <!-- Server section (static menu) -->
                 <li class="kraken-ui-sidebar__menu-section" v-for="section in menu" :key="section.title">
                     <div class="kraken-ui-sidebar__menu-section-header">{{ section.title }}</div>
-
                     <ul class="kraken-ui-sidebar__menu-section-links">
                         <li v-for="item in section.menu" :key="item.path">
                             <router-link
@@ -52,8 +51,9 @@
                         </li>
                     </ul>
                 </li>
+                <!-- Models -->
                 <li class="kraken-ui-sidebar__menu-section" v-for="section in models" :key="section.title">
-                    <div class="kraken-ui-sidebar__menu-section-header">{{ section.title }}</div>
+                    <div class="kraken-ui-sidebar__menu-section-header">{{ section.title }} <a class="kraken-ui-sidebar__menu-item-icon" href="#/edit-model" rel="noopener" title="Add new model"><ui-icon>add_circle_outline</ui-icon></a></div>
 
                     <ul class="kraken-ui-sidebar__menu-section-links">
                         <li v-for="item in section.menu" :key="item.path">
@@ -63,9 +63,20 @@
                             >
                                 {{ item.title }}
                             </router-link>
+                            <!-- Configurations -->
+                            <ul class="kraken-ui-sidebar__menu-section-links">
+                                <li v-for="config in item.configurations" :key="config.path">
+                                    <router-link
+                                        class="kraken-ui-sidebar__menu-sub-item" exact
+                                        :to="config.path"
+                                    >
+                                    {{ config.title }}
+                                    </router-link>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
-                </li>                
+                </li>        
             </ul>
         </div>
     </aside>
@@ -75,6 +86,7 @@
 
 import { menu } from './navigation.js';
 import Model from './pages/Model.vue';
+import Configuration from './pages/Configuration.vue'
 import Brand from './Brand.vue';
 import UiIcon from 'src/UiIcon.vue';
 import UiSelect from 'src/UiSelect.vue';
@@ -122,7 +134,6 @@ export default {
                 var models = []
                 for (let element of resp.data) {
                     if (element['name'] == null) {
-                        console.log(element);
                         continue
                     }
                     
@@ -130,7 +141,18 @@ export default {
                     path: '/model/'+element['id'],
                     component: Model,
                     title: element['name'],
-                    sourceUrl: 'src/Model.vue'
+                    configurations: [
+                        {
+                            path: '/model/'+element['id']+'/configuration/1',
+                            component: Configuration,
+                            title: element['name']+ '-Conf1'
+                        },
+                        {
+                            path: '/model/'+element['id']+'/configuration/2',
+                            component: Configuration,
+                            title: element['name']+ '-Conf2'
+                        }
+                    ]
                 } 
                 models.push(model)
                 }
@@ -217,6 +239,59 @@ export default {
     display: flex;
     padding: rem(12px);
     padding-left: rem(40px);
+
+    &.is-active {
+        color: $link-color;
+        font-weight: 600;
+        background-color: rgba(black, 0.05);
+    }
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        background-color: rgba(black, 0.05);
+    }
+
+    .ui-icon {
+        font-size: rem(18px);
+        margin-left: rem(12px);
+        color: #868686;
+    }
+}
+
+.kraken-ui-sidebar__menu-item-icon {
+    // align-items: center;
+    // color: rgba(black, 0.87);
+    // display: flex;
+    // padding: rem(12px);
+    // padding-left: rem(40px);
+
+    // &.is-active {
+    //     color: $link-color;
+    //     font-weight: 600;
+    //     background-color: rgba(black, 0.05);
+    // }
+
+    // &:hover,
+    // &:focus {
+    //     text-decoration: none;
+    //     background-color: rgba(black, 0.05);
+    // }
+
+    .ui-icon {
+        font-size: rem(18px);
+        margin-left: rem(12px);
+        color: #868686;
+    }
+}
+
+.kraken-ui-sidebar__menu-sub-item {
+    align-items: center;
+    color: rgba(black, 0.70);
+    font-size: 0.85em;
+    display: flex;
+    padding: rem(12px);
+    padding-left: rem(50px);
 
     &.is-active {
         color: $link-color;

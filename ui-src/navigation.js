@@ -1,6 +1,9 @@
 import Dashboard from './pages/Dashboard.vue';
 import Settings from './pages/Settings.vue';
 import Model from './pages/Model.vue';
+import Configuration from './pages/Configuration.vue';
+import EditModel from './pages/EditModel.vue';
+import GStorage from './pages/GStorage.vue';
 
 const menu = [
     {
@@ -9,14 +12,17 @@ const menu = [
             {
                 path: '/dashboard',
                 component: Dashboard,
-                title: 'Dashboard',
-                sourceUrl: 'src/Dashboard.vue'
+                title: 'Dashboard'
             },
             {
                 path: '/settings',
                 component: Settings,
-                title: 'Settings',
-                sourceUrl: 'src/Dashboard.vue'
+                title: 'Settings'
+            },
+            {
+                path: '/gstorage',
+                component: GStorage,
+                title: 'GStorage'
             }
         ]
     }
@@ -39,8 +45,13 @@ const routes = menu.reduce((paths, section) => {
     return paths.concat(sectionPaths);
 }, []);
 
-// Add model route
-routes.push({path: "/model/:identifier", component: Model, meta: {section: "Server", title: "Model", sourceUrl: "src/Model.vue"}});
+// Add Models to route
+routes.push({path: "/model/:identifier", component: Model, meta: {section: "Server", title: "Model"}});
+// Add Configurations to route
+routes.push({path: "/model/:identifier/configuration/:confIdentifier", component: Configuration, meta: {section: "Model", title: "Configuration"}});
+// Add new or edit model
+routes.push({path: "/edit-model", component: EditModel, meta: {section: "Server", title: "Add new or edit model"}});
+
 
 // Add the default route at the beginning of the routes array
 routes.unshift({
