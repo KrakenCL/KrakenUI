@@ -1,6 +1,5 @@
 'use strict';
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('deepmerge');
 const webpack = require('webpack');
 
@@ -12,33 +11,19 @@ const config = merge(base, {
 
     output: {
         filename: 'ui.bundle.js',
-        path: options.paths.output.ui
+        path: options.paths.output.ui,
     },
+    plugins: [ ],
+    optimization: { },
+    module: {
+        rules: [
+            
 
-    plugins: [
-        new ExtractTextPlugin({
-            filename: 'ui.bundle.css'
-        }),
-
-        new webpack.LoaderOptionsPlugin({
-            minimize: true
-        }),
-
-        // Set the production environment
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
-        })
-    ]
+        ]
+    },    
 }, { clone: false });
 
-// First item in module.rules array is Vue
 config.module.rules[0].options.loaders = {
-    scss: ExtractTextPlugin.extract({
-        loader: 'css-loader!sass-loader',
-        fallbackLoader: 'vue-style-loader'
-    })
+    scss: 'vue-style-loader!css-loader!sass-loader'
 };
-
 module.exports = config;

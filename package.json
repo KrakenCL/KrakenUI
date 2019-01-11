@@ -22,8 +22,6 @@
     "ui"
   ],
   "files": [
-    "dist",
-    "lib",
     "src"
   ],
   "author": {
@@ -34,11 +32,10 @@
     "url": "https://github.com/KrakenCL/KrakenUI/issues"
   },
   "homepage": "https://krakencl.com",
-  "dependencies": {
-    "extract-text-webpack-plugin": "^3.0.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "ajv": "^6.6.2",
     "autoprefixer": "^9.4.4",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.5",
@@ -50,10 +47,10 @@
     "sass-loader": "^7.1.0",
     "tippy.js": "^3.4.0",
     "vue": "^2.5.21",
-    "vue-loader": "^14.2.2",
+    "vue-loader": "^15.5.1",
     "vue-router": "^3.0.2",
     "vue-template-compiler": "^2.5.21",
-    "webpack": "^4.28.1",
+    "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
   }

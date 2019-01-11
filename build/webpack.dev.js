@@ -6,17 +6,13 @@ const options = require('./options');
 const base = require('./webpack.base.js');
 
 const config = merge(base, {
-    watch: true,
-
-    devtool: '#eval-source-map',
-
     entry: options.paths.resolve('ui-src/index.js'),
-
     output: {
         filename: 'ui.bundle.js',
         path: options.paths.output.ui
     },
-
+    watch: true,
+    devtool: '#eval-source-map',
     devServer: {
         contentBase: options.paths.output.ui,
         host: '0.0.0.0', // Bind to 0.0.0.0 for external access for external devices (mobile testing)

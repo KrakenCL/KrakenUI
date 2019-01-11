@@ -8,7 +8,7 @@ const version = '0.0.1';
 
 const banner =
   '/*!\n' +
-  ' * KrakenCLUI v' + version + ' (https://github.com/KrakenCL/KrakenUI)\n' +
+  ' * KrakenUI v' + version + ' (https://github.com/KrakenCL/KrakenUI)\n' +
   ' * (c) ' + new Date().getFullYear() + ' Volodymyr Pavliukevych\n' +
   ' * Released under the GPL 3 License.\n' +
   ' */';
@@ -27,8 +27,6 @@ module.exports = {
         },
 
         output: {
-            main: path.join(__dirname, '..', 'dist'),
-            lib: path.join(__dirname, '..', 'lib'),
             ui: path.join(__dirname, '..', 'ui')
         },
 
