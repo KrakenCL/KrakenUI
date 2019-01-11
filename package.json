@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.js --mode development --inline --hot",
     "build": "webpack --config build/webpack.ui.js --optimize-minimize --mode production",
-    "clean": "rimraf ./ui/ui.bundle.css ./ui/ui.bundle.js",
+    "clean": "rimraf ./ui/ui.bundle.css ./ui/main.js",
     "lint": "eslint --format=node_modules/eslint-formatter-pretty --ext .js,.vue,.html ./",
     "test": "npm run lint"
   },
@@ -43,6 +43,7 @@
     "css-loader": "^2.1.0",
     "deepmerge": "^3.0.0",
     "fuzzysearch": "^1.0.3",
+    "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "tippy.js": "^3.4.0",

@@ -1,5 +1,7 @@
 'use strict';
 
+
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const merge = require('deepmerge');
@@ -13,17 +15,23 @@ const config = merge(base, {
         path: options.paths.output.ui
     },
 
-    plugins: [ new VueLoaderPlugin() ],
-    optimization: { },
+    plugins: [ new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: '[name].css',
+            chunkFilename: '[id].css',
+          }) ],
+    optimization: {},
     module: {
         rules: [
             {
-                test: /\.scss$/,
+                test: /\.(sa|sc|c)ss$/,
                 use: [
-                    'vue-style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'sass-loader'
-                ]
+                    'sass-loader',
+                ],
             }
         ]
     }   
