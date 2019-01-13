@@ -32,7 +32,9 @@
     "url": "https://github.com/KrakenCL/KrakenUI/issues"
   },
   "homepage": "https://krakencl.com",
-  "dependencies": {},
+  "dependencies": {
+    "autosize": "^4.0.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "ajv": "^6.6.2",

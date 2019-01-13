@@ -51,9 +51,39 @@
                         </li>
                     </ul>
                 </li>
+                
+                <!-- Triggers section -->
+                <li class="kraken-ui-sidebar__menu-section">
+                    <div class="kraken-ui-sidebar__menu-section-header">Triggers <a class="kraken-ui-sidebar__menu-item-icon" href="#/triggercreate" rel="noopener" title="Add new trigger"><ui-icon>add_circle_outline</ui-icon></a></div>
+                    <ul class="kraken-ui-sidebar__menu-section-links">
+                        <li v-for="trigger in triggers" :key="trigger.path">
+                            <router-link
+                                class="kraken-ui-sidebar__menu-item" exact
+                                :to="trigger.path"
+                            >
+                                {{ trigger.title }}
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- DataSources section -->
+                <li class="kraken-ui-sidebar__menu-section">
+                    <div class="kraken-ui-sidebar__menu-section-header">DataSources <a class="kraken-ui-sidebar__menu-item-icon" href="#/datasourcecreate" rel="noopener" title="Add new data source"><ui-icon>add_circle_outline</ui-icon></a></div>
+                    <ul class="kraken-ui-sidebar__menu-section-links">
+                        <li v-for="datasource in datasources" :key="datasource.path">
+                            <router-link
+                                class="kraken-ui-sidebar__menu-item" exact
+                                :to="datasource.path"
+                            >
+                                {{ datasource.title }}
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>                                
                 <!-- Models -->
                 <li class="kraken-ui-sidebar__menu-section" v-for="section in models" :key="section.title">
-                    <div class="kraken-ui-sidebar__menu-section-header">{{ section.title }} <a class="kraken-ui-sidebar__menu-item-icon" href="#/edit-model" rel="noopener" title="Add new model"><ui-icon>add_circle_outline</ui-icon></a></div>
+                    <div class="kraken-ui-sidebar__menu-section-header">{{ section.title }} <a class="kraken-ui-sidebar__menu-item-icon" href="#/modelcreate" rel="noopener" title="Add new model"><ui-icon>add_circle_outline</ui-icon></a></div>
 
                     <ul class="kraken-ui-sidebar__menu-section-links">
                         <li v-for="item in section.menu" :key="item.path">
@@ -87,6 +117,8 @@
 import { menu } from './navigation.js';
 import Model from './pages/Model.vue';
 import Configuration from './pages/Configuration.vue'
+import Trigger from './pages/Trigger.vue'
+import DataSources from './pages/DataSource.vue'
 import Brand from './Brand.vue';
 import UiIcon from 'src/UiIcon.vue';
 import UiSelect from 'src/UiSelect.vue';
@@ -108,7 +140,27 @@ export default {
     data() {
         return {
             menu,
-            models : []
+            models : [],
+            triggers : [{
+                path: '/trigger/2',
+                component: Trigger,
+                title: 'Scheduled 3:00 PM'
+            }],
+            datasources : [{
+                path: '/datasource/1',
+                component: DataSources,
+                title: 'ArchivedFolder'
+            },
+            {
+                path: '/datasource/3',
+                component: DataSources,
+                title: 'GDisk'
+            },
+            {
+                path: '/datasource/4',
+                component: DataSources,
+                title: 'G Suite bucket'
+            }]
         };
     },
 
@@ -260,24 +312,6 @@ export default {
 }
 
 .kraken-ui-sidebar__menu-item-icon {
-    // align-items: center;
-    // color: rgba(black, 0.87);
-    // display: flex;
-    // padding: rem(12px);
-    // padding-left: rem(40px);
-
-    // &.is-active {
-    //     color: $link-color;
-    //     font-weight: 600;
-    //     background-color: rgba(black, 0.05);
-    // }
-
-    // &:hover,
-    // &:focus {
-    //     text-decoration: none;
-    //     background-color: rgba(black, 0.05);
-    // }
-
     .ui-icon {
         font-size: rem(18px);
         margin-left: rem(12px);

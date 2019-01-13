@@ -3,7 +3,10 @@ import Settings from './pages/Settings.vue';
 import Model from './pages/Model.vue';
 import Configuration from './pages/Configuration.vue';
 import EditModel from './pages/EditModel.vue';
-import GStorage from './pages/GStorage.vue';
+import GCloudStorage from './pages/GCloudStorage.vue';
+import GDisk from './pages/GDisk';
+import Trigger from './pages/Trigger.vue';
+import DataSource from './pages/DataSource.vue';
 
 const menu = [
     {
@@ -20,9 +23,14 @@ const menu = [
                 title: 'Settings'
             },
             {
-                path: '/gstorage',
-                component: GStorage,
-                title: 'GStorage'
+                path: '/gcloudstorage',
+                component: GCloudStorage,
+                title: 'Google Cloud storage'
+            },
+            {
+                path: '/gdisk',
+                component: GDisk,
+                title: 'Google Disk'
             }
         ]
     }
@@ -50,9 +58,13 @@ routes.push({path: "/model/:identifier", component: Model, meta: {section: "Serv
 // Add Configurations to route
 routes.push({path: "/model/:identifier/configuration/:confIdentifier", component: Configuration, meta: {section: "Model", title: "Configuration"}});
 // Add new or edit model
-routes.push({path: "/edit-model", component: EditModel, meta: {section: "Server", title: "Add new or edit model"}});
-
-
+routes.push({path: "/modelcreate", component: EditModel, meta: {section: "Server", title: "Add new model"}});
+// Add new or edit trigger
+routes.push({path: "/trigger/:identifier", component: Trigger, meta: {section: "Triggers", title: "Edit trigger"}});
+routes.push({path: "/triggercreate", component: Trigger, meta: {section: "Triggers", title: "Add new trigger"}});
+// Add new or edit datasource
+routes.push({path: "/datasource/:identifier", component: DataSource, meta: {section: "DataSources", title: "Edit datasource"}});
+routes.push({path: "/datasourcecreate", component: DataSource, meta: {section: "DataSources", title: "Add new datasource"}});
 // Add the default route at the beginning of the routes array
 routes.unshift({
     path: '/',
