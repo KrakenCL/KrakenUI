@@ -39,25 +39,63 @@
                 v-model="swiftToolchains"
             ></ui-textbox>
         </ui-collapsible>
+        <ui-collapsible title="Docker settings" open>
+            <h4> Docker environment </h4>
+
+            <ui-textbox
+                help="Please, set Docker server protocol, address and port."
+                label="Docker server"
+                placeholder="tcp://127.0.0.1:2376"
+                v-model="dockerServerAddress"
+            ></ui-textbox>
+            <ui-switch v-model="isDockerServerUseTLS">Use TLS</ui-switch>
+        </ui-collapsible>
+        <ui-alert @dismiss="positiveNotification = false" type="success" v-show="positiveNotification">
+                {{ positiveNotificationMessage }}
+        </ui-alert>
+        <ui-button :size="buttonSize" color="primary" :loading="saveSettingsISLoading" @click="sendSettingsOnServer">Save settings</ui-button>
     </section>
 </template>
 
 <script>
 import UiCollapsible from 'src/UiCollapsible.vue';
 import UiTextbox from 'src/UiTextbox.vue';
+import UiSwitch from 'src/UiSwitch.vue';
+import UiButton from 'src/UiButton.vue';
+import UiAlert from 'src/UiAlert.vue';
 
 export default {
     components: {
         UiCollapsible,
-        UiTextbox
+        UiTextbox,
+        UiSwitch,
+        UiButton,
+        UiAlert
     },
     data() {
         return {
             python2path: '',
             python3path: '',
             tensorboard: '',
-            swiftToolchains:  ''
+            swiftToolchains:  '',
+            dockerServerAddress: '',
+            isDockerServerUseTLS: true,
+            buttonSize: 'normal',
+            saveSettingsISLoading: false,
+            positiveNotification: false,
+            positiveNotificationMessage: 'Settings saved!'
         };
+    },
+    methods: {
+        sendSettingsOnServer(event) {
+            this.saveSettingsISLoading = true;
+            this.positiveNotification = false;
+
+            setTimeout(() => {
+                this.saveSettingsISLoading = false;
+                this.positiveNotification = true;
+            }, 2000);
+        }
     }
 };
 </script>
