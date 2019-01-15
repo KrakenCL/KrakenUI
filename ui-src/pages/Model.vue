@@ -1,9 +1,9 @@
 <template>
     <section class="page page--ui-model">
-        <h2 class="page__title">Model </h2>
-        <p>That page provide posibility to setup your model.</p>
+        <h2 class="page__title">Model <i>{{ this.model.name }}</i></h2>
+        <p>{{ this.model.description}}</p>
 
-        <ui-collapsible title="General" close>
+        <ui-collapsible title="General" open>
             <h4> General model settings: </h4>
             <ui-textbox
                 disabled
@@ -26,20 +26,48 @@
                 placeholder="ResNet-152 achieves a top-5 validation error of 4.49%"
                 v-model="model.description"
             ></ui-textbox>
-
+        </ui-collapsible>
+        <ui-collapsible title="Environment" open>
+            <h4> General environment settings: </h4>
             <ui-textbox
                 help="Please, set main (index) file to launch your model."
                 label="Main file:"
                 placeholder="main.py"
                 v-model="model.mainFile"
             ></ui-textbox>
+            <ui-select
+                label="Language"
+                placeholder="Select a language"
+                :options="languageEnvironments"
+                v-model="model.language"
+            ></ui-select>
+            <ui-textbox
+                help="Please, set list of pip installed dependencies (separated ', ')."
+                label="Dependencies"
+                placeholder="numpy, pandas"
+                v-model.lazy="pipInstalledDependencies"
+                :disabled="model.language.indexOf('python') === -1"
+            ></ui-textbox>
+            <br>
+            <h4> TensorFlow options: </h4>
+            <ui-switch v-model="model.tensorflow.useGPU">Use GPU accelerator</ui-switch>
+            <ui-switch v-model="model.tensorflow.attachTensorBoard">Attach TensorBoard</ui-switch>
         </ui-collapsible>
         <br>
-        <ui-switch v-model="model.dockerContainer" @change="useGitRepository">Use as Docker container</ui-switch>
+        <ui-switch v-model="model.dockerContainer" @change="model.dockerContainer" disabled>Use as Docker container</ui-switch>
         <ui-switch v-model="model.sourceType" true-value="git" false-value="archive" @change="useGitRepository">Use git repository as model source</ui-switch>
         <br>
-        <ui-fileupload name="file" :disabled="model.sourceType != 'archive'">Upload model as archived folder</ui-fileupload>
-        <br><br>
+        <ui-fileupload name="file" accept="application/zip" :disabled="model.sourceType != 'archive' || uploadingArchive" @change="processFile($event)">Upload model as archived folder</ui-fileupload>
+        <br>
+        <ui-preloader :show="uploadingArchive"></ui-preloader>
+        <br>
+        <ui-alert @dismiss="archivedModelPositiveNotification = false" type="success" v-show="archivedModelPositiveNotification">
+                {{ archivedModelPositiveNotificationMessage }}
+        </ui-alert>
+        <ui-alert @dismiss="archivedModelErrorNotification = false" type="error" v-show="archivedModelErrorNotification">
+                {{ archivedModelErrorNotificationMessage }}
+        </ui-alert>
+        <br>
         <ui-collapsible title="Git repository settings" :disabled="model.sourceType != 'git'" :open="model.sourceType === 'git'">
             <h4> Server settings </h4>
             <ui-textbox
@@ -58,6 +86,7 @@
 
             <h4> SSH key </h4>
             <ui-fileupload name="file">Choose private ssh key file</ui-fileupload>
+            
             <br><br>
             <ui-textbox
                 help="Please, set ssh key password."
@@ -93,30 +122,60 @@
 <script>
 import UiCollapsible from 'src/UiCollapsible.vue';
 import UiFileupload from 'src/UiFileupload.vue';
+import UiPreloader from 'src/UiPreloader.vue';
 import UiTextbox from 'src/UiTextbox.vue';
+import UiSelect from 'src/UiSelect.vue';
 import UiSwitch from 'src/UiSwitch.vue';
 import UiButton from 'src/UiButton.vue';
 import UiAlert from 'src/UiAlert.vue';
+import axios from 'axios'
 
 export default {
     components: {
         UiCollapsible,
         UiFileupload,
+        UiPreloader,
         UiTextbox,
         UiSwitch,
         UiButton,
+        UiSelect,
         UiAlert
+    },
+    computed: {
+        pipInstalledDependencies: {
+            get() {
+                return this.model.pipInstalledDependencies.join(', ');
+            },
+            set(value) {
+                this.model.pipInstalledDependencies = value.split(', ');
+            },
+        }
     },
     data() {
         return {
+            archivedModelPositiveNotification: false,
+            archivedModelPositiveNotificationMessage: '',
+            archivedModelErrorNotification: false,
+            archivedModelErrorNotificationMessage: '',
+            uploadingArchive: false,
+            archivedModelData: null,
             gitSectionEnabled: false,
+            languageEnvironments: [
+                'python2', 'python3', 'swift'
+            ],
             model: {
                 identifier: '7B84D8A6-0EEE-4D3B-9DEF-F547E9D945EC',
                 name: 'ResNet-152',
                 description: 'ResNet-152 achieves a top-5 validation error of 4.49%.',
                 mainFile: 'Autoencoder/autoencoder.py',
-                dockerContainer: true,
+                dockerContainer: false,
                 sourceType: 'git',
+                language: 'python3',
+                pipInstalledDependencies: ['numpy', 'pandas'],
+                tensorflow: {
+                    useGPU: false,
+                    attachTensorBoard: true,
+                },
                 git: {
                     identifier: '7B84D8A6-0EEE-4D3B-9DEF-F547E9D945CC',
                     url: 'git@github.com:Octadero/rada.git',
@@ -176,6 +235,26 @@ export default {
                 this.saveSettingsISLoading = false;
                 this.positiveNotification = true;
             }, 2000);
+        },
+        processFile(event) {
+            this.archivedModelPositiveNotification = false;
+            this.archivedModelErrorNotification = false;
+            this.uploadingArchive = true;
+            
+            let formData = new FormData();
+            for (var i = 0; i < event.length; i++) {
+                formData.append('file', event[i]);
+            }
+            axios.post('https://service.com/fileupload', formData, { timeout: 5000, headers: { 'Content-Type': 'multipart/form-data' } })
+            .then(function(response){
+                this.archivedModelPositiveNotification = true;
+                this.archivedModelPositiveNotificationMessage = 'Success!'
+                this.uploadingArchive = false;
+            }).catch((error) => {
+                this.archivedModelErrorNotification = true;
+                this.archivedModelErrorNotificationMessage = error;
+                this.uploadingArchive = false;
+            });
         }
     }
 };

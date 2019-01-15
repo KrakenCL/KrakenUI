@@ -7,6 +7,7 @@ import GCloudStorage from './pages/GCloudStorage.vue';
 import GDisk from './pages/GDisk';
 import Trigger from './pages/Trigger.vue';
 import DataSource from './pages/DataSource.vue';
+import UserNotificationCenter from './pages/UserNotificationCenter.vue';
 
 const menu = [
     {
@@ -21,6 +22,11 @@ const menu = [
                 path: '/settings',
                 component: Settings,
                 title: 'Settings'
+            },
+            {
+                path: '/user-notification-center',
+                component: UserNotificationCenter,
+                title: 'User notification center'
             },
             {
                 path: '/gcloudstorage',
