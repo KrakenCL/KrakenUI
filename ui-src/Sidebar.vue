@@ -54,19 +54,39 @@
                 
                 <!-- Triggers section -->
                 <li class="kraken-ui-sidebar__menu-section">
-                    <div class="kraken-ui-sidebar__menu-section-header">Triggers <a class="kraken-ui-sidebar__menu-item-icon" href="#/triggercreate" rel="noopener" title="Add new trigger"><ui-icon>add_circle_outline</ui-icon></a></div>
+                    <div class="kraken-ui-sidebar__menu-section-header">Triggers <a class="kraken-ui-sidebar__menu-item-icon" href="#/trigger/create" rel="noopener" title="Add new trigger"><ui-icon>add_circle_outline</ui-icon></a></div>
                     <ul class="kraken-ui-sidebar__menu-section-links">
                         <li v-for="trigger in triggers" :key="trigger.path">
                             <router-link
                                 class="kraken-ui-sidebar__menu-item" exact
                                 :to="trigger.path"
                             >
-                                {{ trigger.title }}
+                            {{ trigger.title }}
                             </router-link>
                         </li>
                     </ul>
                 </li>
                 
+                <!-- Jobs section -->
+                <li class="kraken-ui-sidebar__menu-section">
+                    <div class="kraken-ui-sidebar__menu-section-header">Jobs</div>
+                    <ul class="kraken-ui-sidebar__menu-section-links">
+                        <li v-for="job in jobs" :key="job.path">
+                            
+                            <router-link
+                                class="kraken-ui-sidebar__menu-iconed-item" exact
+                                :to="job.path"
+                            >
+                            <ui-icon :icon="job.icon" :class="job.icon_style"></ui-icon>
+                            {{ job.title }}                                
+                            </router-link>
+
+                        </li>
+                    </ul>
+                    <div class="kraken-ui-sidebar__menu-more">
+                        <a title="Show more">Show more ...</a>
+                    </div>
+                </li>                
                 <!-- DataSources section -->
                 <li class="kraken-ui-sidebar__menu-section">
                     <div class="kraken-ui-sidebar__menu-section-header">DataSources <a class="kraken-ui-sidebar__menu-item-icon" href="#/datasourcecreate" rel="noopener" title="Add new data source"><ui-icon>add_circle_outline</ui-icon></a></div>
@@ -83,7 +103,7 @@
                 </li>                                
                 <!-- Models -->
                 <li class="kraken-ui-sidebar__menu-section" v-for="section in models" :key="section.title">
-                    <div class="kraken-ui-sidebar__menu-section-header">{{ section.title }} <a class="kraken-ui-sidebar__menu-item-icon" href="#/modelcreate" rel="noopener" title="Add new model"><ui-icon>add_circle_outline</ui-icon></a></div>
+                    <div class="kraken-ui-sidebar__menu-section-header">{{ section.title }} <a class="kraken-ui-sidebar__menu-item-icon" href="#/model/create" rel="noopener" title="Add new model"><ui-icon>add_circle_outline</ui-icon></a></div>
 
                     <ul class="kraken-ui-sidebar__menu-section-links">
                         <li v-for="item in section.menu" :key="item.path">
@@ -116,6 +136,7 @@
 
 import { menu } from './navigation.js';
 import Model from './pages/Model.vue';
+import Job from './pages/Job.vue';
 import Configuration from './pages/Configuration.vue'
 import Trigger from './pages/Trigger.vue'
 import DataSources from './pages/DataSource.vue'
@@ -139,8 +160,30 @@ export default {
 
     data() {
         return {
+            
             menu,
             models : [],
+            jobs: [{
+                path: '/job/view/2',
+                component: Job,
+                title: 'Model-A, conf:B',
+                icon: 'done',
+                icon_style: 'ui-positive-icon'
+            },
+            {
+                path: '/job/view/4',
+                component: Job,
+                title: 'Model-A, conf:C',
+                icon: 'error_outline',
+                icon_style: 'ui-warning-icon'
+            },
+            {
+                path: '/job/view/3',
+                component: Job,
+                title: 'Model-C, conf:A',
+                icon: 'timeline',
+                icon_style: 'ui-positive-icon'
+            }],
             triggers : [{
                 path: '/trigger/2',
                 component: Trigger,
@@ -190,7 +233,7 @@ export default {
                     }
                     
                 let model = {
-                    path: '/model/'+element['id'],
+                    path: '/model/view/'+element['id'],
                     component: Model,
                     title: element['name'],
                     configurations: [
@@ -307,15 +350,47 @@ export default {
     .ui-icon {
         font-size: rem(18px);
         margin-left: rem(12px);
+        margin-right: rem(12px);
         color: #868686;
     }
 }
 
-.kraken-ui-sidebar__menu-item-icon {
+.kraken-ui-sidebar__menu-iconed-item {
+    align-items: center;
+    color: rgba(black, 0.87);
+    display: flex;
+    padding: rem(12px);
+    padding-left: rem(25px);
+
+    &.is-active {
+        color: $link-color;
+        font-weight: 600;
+        background-color: rgba(black, 0.05);
+    }
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        background-color: rgba(black, 0.05);
+    }
+
     .ui-icon {
         font-size: rem(18px);
         margin-left: rem(12px);
-        color: #868686;
+        margin-right: rem(12px);
+        color: #aaaaaa;
+    }
+    .ui-positive-icon {
+        font-size: rem(18px);
+        margin-left: rem(12px);
+        margin-right: rem(12px);
+        color: #09875b;
+    }
+    .ui-warning-icon {
+        font-size: rem(18px);
+        margin-left: rem(12px);
+        margin-right: rem(12px);
+        color: #ff6f01;
     }
 }
 
@@ -339,6 +414,17 @@ export default {
         background-color: rgba(black, 0.05);
     }
 
+    .ui-icon {
+        font-size: rem(18px);
+        margin-left: rem(12px);
+        color: #868686;
+    }
+}
+
+.kraken-ui-sidebar__menu-more {
+    align-items: center;
+    padding-top: rem(20px);
+    padding-left: rem(50px);
     .ui-icon {
         font-size: rem(18px);
         margin-left: rem(12px);

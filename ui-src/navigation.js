@@ -2,12 +2,12 @@ import Dashboard from './pages/Dashboard.vue';
 import Settings from './pages/Settings.vue';
 import Model from './pages/Model.vue';
 import Configuration from './pages/Configuration.vue';
-import EditModel from './pages/EditModel.vue';
 import GCloudStorage from './pages/GCloudStorage.vue';
-import GDisk from './pages/GDisk';
+import GDisk from './pages/GDisk.vue';
 import Trigger from './pages/Trigger.vue';
 import DataSource from './pages/DataSource.vue';
 import UserNotificationCenter from './pages/UserNotificationCenter.vue';
+import Job from './pages/Job.vue';
 
 const menu = [
     {
@@ -59,18 +59,26 @@ const routes = menu.reduce((paths, section) => {
     return paths.concat(sectionPaths);
 }, []);
 
-// Add Models to route
-routes.push({path: "/model/:identifier", component: Model, meta: {section: "Server", title: "Model"}});
-// Add Configurations to route
-routes.push({path: "/model/:identifier/configuration/:confIdentifier", component: Configuration, meta: {section: "Model", title: "Configuration"}});
-// Add new or edit model
-routes.push({path: "/modelcreate", component: EditModel, meta: {section: "Server", title: "Add new model"}});
+// Model routes
+routes.push({path: "/model/:action/:identifier", component: Model, meta: {section: "Server", title: "View / Edit Model"}});
+routes.push({path: "/model/:action", component: Model, meta: {section: "Server", title: "Create Model"}});
+
+// Configuration routes
+routes.push({path: "/configuration/:action/:identifier", component: Configuration, meta: {section: "Model", title: "View / Edit Configuration"}});
+routes.push({path: "/configuration/:action", component: Configuration, meta: {section: "Model", title: "Create Configuration"}});
+
 // Add new or edit trigger
-routes.push({path: "/trigger/:identifier", component: Trigger, meta: {section: "Triggers", title: "Edit trigger"}});
-routes.push({path: "/triggercreate", component: Trigger, meta: {section: "Triggers", title: "Add new trigger"}});
+routes.push({path: "/trigger/:action/:identifier", component: Trigger, meta: {section: "Triggers", title: "View / Edit Trigger"}});
+routes.push({path: "/trigger/:action", component: Trigger, meta: {section: "Triggers", title: "Create Trigger"}});
+
 // Add new or edit datasource
-routes.push({path: "/datasource/:identifier", component: DataSource, meta: {section: "DataSources", title: "Edit datasource"}});
-routes.push({path: "/datasourcecreate", component: DataSource, meta: {section: "DataSources", title: "Add new datasource"}});
+routes.push({path: "/datasource/:action/:identifier", component: DataSource, meta: {section: "DataSources", title: "View / Edit Datasource"}});
+routes.push({path: "/datasource/:action", component: DataSource, meta: {section: "DataSources", title: "Create Datasource"}});
+
+// Job
+routes.push({path: "/job/:action/:identifier", component: Job, meta: {section: "Jobs", title: "View Job"}});
+
+
 // Add the default route at the beginning of the routes array
 routes.unshift({
     path: '/',

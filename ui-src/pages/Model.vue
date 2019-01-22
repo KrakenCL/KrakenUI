@@ -164,7 +164,7 @@ export default {
                 'python2', 'python3', 'swift'
             ],
             model: {
-                identifier: '7B84D8A6-0EEE-4D3B-9DEF-F547E9D945EC',
+                identifier : this.$route.params.identifier,
                 name: 'ResNet-152',
                 description: 'ResNet-152 achieves a top-5 validation error of 4.49%.',
                 mainFile: 'Autoencoder/autoencoder.py',
@@ -224,6 +224,9 @@ export default {
         };
     },
     methods: {
+        fetchData() {
+            console.log("loadede");
+        },
         useGitRepository(event) {
             console.log(this.model.sourceType);
         },
@@ -256,6 +259,13 @@ export default {
                 this.uploadingArchive = false;
             });
         }
+    },
+    created() {
+        this.fetchData()
+    },
+    watch: {
+        '$route': 'fetchData',
+        components: {}
     }
 };
 </script>
