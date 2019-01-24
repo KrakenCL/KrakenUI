@@ -33,7 +33,8 @@
   },
   "homepage": "https://krakencl.com",
   "dependencies": {
-    "autosize": "^4.0.2"
+    "autosize": "^4.0.2",
+    "vue-custom-scrollbar": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
