@@ -49,6 +49,13 @@
                 <ui-icon-button icon="get_app" color="primary"></ui-icon-button>
 
         </ui-collapsible>
+
+        <ui-collapsible title="Artifacts" close>
+            <a href=""><ui-icon-button icon="get_app" size="small" color="primary"></ui-icon-button> Datasource output.hd5</a>
+            <br><br>
+            <a href=""><ui-icon-button icon="get_app" size="small" color="primary"></ui-icon-button> Datasource output2.hd5</a>
+            
+        </ui-collapsible>
     </section>
 </template>
 
@@ -106,6 +113,14 @@ export default {
                     {
                         title: 'Launch time',
                         value: '21 of Jan 2019 3:00:01PM UTC+0000'
+                    },
+                    {
+                        title: 'Finish time',
+                        value: '21 of Jan 2019 5:00:01PM UTC+0000'
+                    },
+                    {
+                        title: 'Duration',
+                        value: '2 hours 1 minut 0 seconds'
                     },
                     {
                         title: 'Result',

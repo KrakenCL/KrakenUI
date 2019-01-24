@@ -7,7 +7,7 @@
 </template>
 
 <script>
-
+// + Environment values
 export default {
     name: 'Config',
     data() {
