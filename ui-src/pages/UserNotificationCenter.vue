@@ -1,11 +1,11 @@
 <template>
     <section class="page page--ui-user-notification-center">
         <h2 class="page__title">User notification center settings</h2>
-        <ui-collapsible title="Dashboard notifications" open>
+        <ui-collapsible title="Dashboard notifications" close>
             <h4> What notifications should be shown on dashboard: </h4>
             <ui-switch v-model="dashboardNotifications.modelChanged">Any model changes notification.</ui-switch>
         </ui-collapsible>
-        <ui-collapsible title="E-mail notifications" open>
+        <ui-collapsible title="E-mail notifications" close>
             <h4> E-mail server settings:</h4>
             <ui-textbox
                 help="Please, set SMTP relay server address."
@@ -52,7 +52,6 @@
                 disabled
             ></ui-textbox>
             <h4> What notifications should be sent by email: </h4>
-            
             <ui-switch v-model="emailNotifications.modelChanged">Any model changes notification.</ui-switch>
         </ui-collapsible>
     </section>

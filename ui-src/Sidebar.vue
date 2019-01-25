@@ -86,7 +86,8 @@
                     <div class="kraken-ui-sidebar__menu-more">
                         <a title="Show more">Show more ...</a>
                     </div>
-                </li>                
+                </li>
+
                 <!-- DataSources section -->
                 <li class="kraken-ui-sidebar__menu-section">
                     <div class="kraken-ui-sidebar__menu-section-header">DataSources <a class="kraken-ui-sidebar__menu-item-icon" href="#/datasourcecreate" rel="noopener" title="Add new data source"><ui-icon>add_circle_outline</ui-icon></a></div>
@@ -100,7 +101,8 @@
                             </router-link>
                         </li>
                     </ul>
-                </li>                                
+                </li>
+
                 <!-- Models -->
                 <li class="kraken-ui-sidebar__menu-section" v-for="section in models" :key="section.title">
                     <div class="kraken-ui-sidebar__menu-section-header">{{ section.title }} <a class="kraken-ui-sidebar__menu-item-icon" href="#/model/create" rel="noopener" title="Add new model"><ui-icon>add_circle_outline</ui-icon></a></div>
@@ -238,12 +240,12 @@ export default {
                     title: element['name'],
                     configurations: [
                         {
-                            path: '/model/'+element['id']+'/configuration/1',
+                            path: '/configuration/view/1',
                             component: Configuration,
                             title: element['name']+ '-Conf1'
                         },
                         {
-                            path: '/model/'+element['id']+'/configuration/2',
+                            path: '/configuration/view/2',
                             component: Configuration,
                             title: element['name']+ '-Conf2'
                         }

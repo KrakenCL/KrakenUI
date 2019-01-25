@@ -4,9 +4,8 @@
 
         <p>That page provide posibility to setup your server settings and environment.</p>
 
-        <ui-collapsible title="Environment settings" open>
+        <ui-collapsible title="Environment settings" close>
             <h4> Python environment </h4>
-
             <ui-textbox
                 help="Please, set full path to python environment"
                 label="Python 2"
@@ -20,7 +19,6 @@
                 placeholder="/path/to/python3"
                 v-model="python3path"
             ></ui-textbox>
-            <br>
 
             <h4> TensorFlow environment </h4>
             <ui-textbox
@@ -29,7 +27,6 @@
                 placeholder="/path/to/tensorboard"
                 v-model="tensorboard"
             ></ui-textbox>
-            <br>
 
             <h4> Swift environment </h4>
             <ui-textbox
@@ -39,7 +36,7 @@
                 v-model="swiftToolchains"
             ></ui-textbox>
         </ui-collapsible>
-        <ui-collapsible title="Docker settings" open>
+        <ui-collapsible title="Docker settings" close>
             <h4> Docker environment </h4>
 
             <ui-textbox
