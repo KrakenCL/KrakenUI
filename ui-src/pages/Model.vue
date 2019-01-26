@@ -57,16 +57,13 @@
         <ui-switch v-model="model.dockerContainer" @change="model.dockerContainer" disabled>Use as Docker container</ui-switch>
         <ui-switch v-model="model.sourceType" true-value="git" false-value="archive" @change="useGitRepository">Use git repository as model source</ui-switch>
         <br>
-        <ui-fileupload name="file" accept="application/zip" :disabled="model.sourceType != 'archive' || uploadingArchive" @change="processFile($event)">Upload model as archived folder</ui-fileupload>
-        <br>
-        <ui-preloader :show="uploadingArchive"></ui-preloader>
-        <br>
-        <ui-alert @dismiss="archivedModelPositiveNotification = false" type="success" v-show="archivedModelPositiveNotification">
-                {{ archivedModelPositiveNotificationMessage }}
-        </ui-alert>
-        <ui-alert @dismiss="archivedModelErrorNotification = false" type="error" v-show="archivedModelErrorNotification">
-                {{ archivedModelErrorNotificationMessage }}
-        </ui-alert>
+        <ui-select
+            label="Model from datasource"
+            placeholder="Select one of datasources"
+            :options="datasources"
+            v-model="model.archive.datasource"
+            :disabled="model.sourceType != 'archive'"
+        ></ui-select>
         <br>
         <ui-collapsible title="Git repository settings" :disabled="model.sourceType != 'git'" :open="model.sourceType === 'git'">
             <h4> Server settings </h4>
@@ -153,16 +150,11 @@ export default {
     },
     data() {
         return {
-            archivedModelPositiveNotification: false,
-            archivedModelPositiveNotificationMessage: '',
-            archivedModelErrorNotification: false,
-            archivedModelErrorNotificationMessage: '',
-            uploadingArchive: false,
-            archivedModelData: null,
             gitSectionEnabled: false,
             languageEnvironments: [
                 'python2', 'python3', 'swift'
             ],
+            datasources: ["Home Google Drive", "GSuite bucket#1", "Archive"],
             model: {
                 identifier : this.$route.params.identifier,
                 name: 'ResNet-152',
@@ -191,29 +183,9 @@ export default {
                         password: null
                     }
                 },
-                // sourceType: 'archive',
-                // archive: {
-                //     identifier: '7B84D8A6-0EEE-4D3B-9DEF-F547E9D94CCC',
-                //     isUploaded: true,
-                //     unarchived: true,
-                //     structure: [
-                //         {
-                //             name: 'Autoencoder',
-                //             childe: [
-                //                 {
-                //                     name: 'autoencoder.py'
-                //                 }
-                //             ]
-                //         }, 
-                //         {
-                //             name: 'README.md'
-                //         },
-                //         {
-                //             name: 'LICENSE'
-                //         }
-
-                //     ]
-                // }
+                archive: {
+                    datasource: "",
+                }
             },
             
 
@@ -238,26 +210,6 @@ export default {
                 this.saveSettingsISLoading = false;
                 this.positiveNotification = true;
             }, 2000);
-        },
-        processFile(event) {
-            this.archivedModelPositiveNotification = false;
-            this.archivedModelErrorNotification = false;
-            this.uploadingArchive = true;
-            
-            let formData = new FormData();
-            for (var i = 0; i < event.length; i++) {
-                formData.append('file', event[i]);
-            }
-            axios.post('https://service.com/fileupload', formData, { timeout: 5000, headers: { 'Content-Type': 'multipart/form-data' } })
-            .then(function(response){
-                this.archivedModelPositiveNotification = true;
-                this.archivedModelPositiveNotificationMessage = 'Success!'
-                this.uploadingArchive = false;
-            }).catch((error) => {
-                this.archivedModelErrorNotification = true;
-                this.archivedModelErrorNotificationMessage = error;
-                this.uploadingArchive = false;
-            });
         }
     },
     created() {
