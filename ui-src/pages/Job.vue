@@ -163,7 +163,7 @@ export default {
                         value: 'Finished'
                     },
                     {
-                        title: 'DataSource',
+                        title: 'SourcePoint',
                         value: 'Home Google Drive'
                     }
                 ],

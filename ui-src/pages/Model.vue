@@ -58,10 +58,10 @@
         <ui-switch v-model="model.sourceType" true-value="git" false-value="archive" @change="useGitRepository">Use git repository as model source</ui-switch>
         <br>
         <ui-select
-            label="Model from datasource"
-            placeholder="Select one of datasources"
-            :options="datasources"
-            v-model="model.archive.datasource"
+            label="Model from sourcePoint"
+            placeholder="Select one of sourcePoints"
+            :options="sourcePoints"
+            v-model="model.archive.sourcePoint"
             :disabled="model.sourceType != 'archive'"
         ></ui-select>
         <br>
@@ -154,7 +154,7 @@ export default {
             languageEnvironments: [
                 'python2', 'python3', 'swift'
             ],
-            datasources: ["Home Google Drive", "GSuite bucket#1", "Archive"],
+            sourcePoints: ["Home Google Drive", "GSuite bucket#1", "Archive"],
             model: {
                 identifier : this.$route.params.identifier,
                 name: 'ResNet-152',
@@ -184,7 +184,7 @@ export default {
                     }
                 },
                 archive: {
-                    datasource: "",
+                    sourcePoint: "",
                 }
             },
             
@@ -197,7 +197,6 @@ export default {
     },
     methods: {
         fetchData() {
-            console.log("loadede");
         },
         useGitRepository(event) {
             console.log(this.model.sourceType);

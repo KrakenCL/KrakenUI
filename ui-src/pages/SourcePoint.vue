@@ -1,8 +1,8 @@
 <template>
-    <section class="page page--ui-datasource">
-        <h2 class="page__title">DataSource</h2>
+    <section class="page page--ui-sourcePoint">
+        <h2 class="page__title">SourcePoint</h2>
 
-        <p>That is future DataSource {{ identifier }} </p>
+        <p>That is future SourcePoint {{ identifier }} </p>
         
 
         <!-- <ui-fileupload name="file" accept="application/zip" :disabled="model.sourceType != 'archive' || uploadingArchive" @change="processFile($event)">Upload model as archived folder</ui-fileupload> -->
@@ -21,7 +21,7 @@
 <script>
 
 export default {
-    name: 'DataSource',
+    name: 'SourcePoint',
     data() {
         return {
             identifier : this.$route.params.identifier,
@@ -60,7 +60,7 @@ export default {
 <style lang="scss">
 @import '~styles/imports';
 
-.page--ui-datasource {
+.page--ui-sourcePoint {
     .item {
         cursor: pointer;
     }

@@ -60,20 +60,20 @@
             ></ui-textbox>
             <br>
 
-            <ui-switch v-model="trigger.datasource.isEnable"> Launch by DataSource event </ui-switch>
+            <ui-switch v-model="trigger.sourcePoint.isEnable"> Launch by SourcePoint event </ui-switch>
             <ui-select
-                label="DataSource"
-                placeholder="Select one of datasources"
-                :options="datasources"
-                v-model="trigger.datasource.identifier"
-                :disabled="!trigger.datasource.isEnable"
+                label="SourcePoint"
+                placeholder="Select one of sourcePoints"
+                :options="sourcePoints"
+                v-model="trigger.sourcePoint.identifier"
+                :disabled="!trigger.sourcePoint.isEnable"
             ></ui-select>
             <ui-select
-                label="DataSource event"
+                label="SourcePoint event"
                 placeholder="Select one of events"
-                :options="datasourceEvents"
-                v-model="trigger.datasource.event"
-                :disabled="!trigger.datasource.isEnable"
+                :options="sourcePointEvents"
+                v-model="trigger.sourcePoint.event"
+                :disabled="!trigger.sourcePoint.isEnable"
             ></ui-select>            
             <br>
     </section>
@@ -100,8 +100,8 @@ export default {
             identifier : this.$route.params.identifier,
             dailyHouts: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
             dailyMinutes: ["1", "5", "10", "15", "20", "25", "30", "35", "40", "45", "59"],
-            datasources: ["ArchivedFolder", "Home-GDisk", "Work-GDisk", "Google Cloud bucket"],
-            datasourceEvents: ["NewFileAvailable", "FileSizeChanged"],
+            sourcePoints: ["ArchivedFolder", "Home-GDisk", "Work-GDisk", "Google Cloud bucket"],
+            sourcePointEvents: ["NewFileAvailable", "FileSizeChanged"],
             trigger: {
                 isEnable: true,
                 name: '',
@@ -110,10 +110,10 @@ export default {
                     isEnable: true,
                     path: '/api/trigger/launch/EB3F50A5-65FA-4579-813D-C46CEE30A9EB'
                 },
-                datasource: {
+                sourcePoint: {
                     isEnable: true,
-                    identifier: null,
-                    event: null,
+                    identifier: "",
+                    event: "",
                 },
                 schedule: {
                     isEnable: true,
@@ -132,7 +132,6 @@ export default {
     },
     methods: {
         fetchData() {
-            console.log("loadede");
         },
     },
     created() {

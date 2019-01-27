@@ -88,16 +88,16 @@
                     </div>
                 </li>
 
-                <!-- DataSources section -->
+                <!-- SourcePoints section -->
                 <li class="kraken-ui-sidebar__menu-section">
-                    <div class="kraken-ui-sidebar__menu-section-header">DataSources <a class="kraken-ui-sidebar__menu-item-icon" href="#/datasourcecreate" rel="noopener" title="Add new data source"><ui-icon>add_circle_outline</ui-icon></a></div>
+                    <div class="kraken-ui-sidebar__menu-section-header">SourcePoints <a class="kraken-ui-sidebar__menu-item-icon" href="#/sourcePointcreate" rel="noopener" title="Add new data source"><ui-icon>add_circle_outline</ui-icon></a></div>
                     <ul class="kraken-ui-sidebar__menu-section-links">
-                        <li v-for="datasource in datasources" :key="datasource.path">
+                        <li v-for="sourcePoint in sourcePoints" :key="sourcePoint.path">
                             <router-link
                                 class="kraken-ui-sidebar__menu-item" exact
-                                :to="datasource.path"
+                                :to="sourcePoint.path"
                             >
-                                {{ datasource.title }}
+                                {{ sourcePoint.title }}
                             </router-link>
                         </li>
                     </ul>
@@ -141,7 +141,7 @@ import Model from './pages/Model.vue';
 import Job from './pages/Job.vue';
 import Configuration from './pages/Configuration.vue'
 import Trigger from './pages/Trigger.vue'
-import DataSources from './pages/DataSource.vue'
+import SourcePoints from './pages/SourcePoint.vue'
 import Brand from './Brand.vue';
 import UiIcon from 'src/UiIcon.vue';
 import UiSelect from 'src/UiSelect.vue';
@@ -191,19 +191,19 @@ export default {
                 component: Trigger,
                 title: 'Scheduled 3:00 PM'
             }],
-            datasources : [{
-                path: '/datasource/1',
-                component: DataSources,
+            sourcePoints : [{
+                path: '/sourcePoint/1',
+                component: SourcePoints,
                 title: 'ArchivedFolder'
             },
             {
-                path: '/datasource/3',
-                component: DataSources,
+                path: '/sourcePoint/3',
+                component: SourcePoints,
                 title: 'GDisk'
             },
             {
-                path: '/datasource/4',
-                component: DataSources,
+                path: '/sourcePoint/4',
+                component: SourcePoints,
                 title: 'G Suite bucket'
             }]
         };

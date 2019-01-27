@@ -5,7 +5,7 @@ import Configuration from './pages/Configuration.vue';
 import GCloudStorage from './pages/GCloudStorage.vue';
 import GDisk from './pages/GDisk.vue';
 import Trigger from './pages/Trigger.vue';
-import DataSource from './pages/DataSource.vue';
+import SourcePoint from './pages/SourcePoint.vue';
 import UserNotificationCenter from './pages/UserNotificationCenter.vue';
 import Job from './pages/Job.vue';
 
@@ -71,9 +71,9 @@ routes.push({path: "/configuration/:action", component: Configuration, meta: {se
 routes.push({path: "/trigger/:action/:identifier", component: Trigger, meta: {section: "Triggers", title: "View / Edit Trigger"}});
 routes.push({path: "/trigger/:action", component: Trigger, meta: {section: "Triggers", title: "Create Trigger"}});
 
-// Add new or edit datasource
-routes.push({path: "/datasource/:action/:identifier", component: DataSource, meta: {section: "DataSources", title: "View / Edit Datasource"}});
-routes.push({path: "/datasource/:action", component: DataSource, meta: {section: "DataSources", title: "Create Datasource"}});
+// Add new or edit sourcePoint
+routes.push({path: "/sourcePoint/:action/:identifier", component: SourcePoint, meta: {section: "SourcePoints", title: "View / Edit sourcePoint"}});
+routes.push({path: "/sourcePoint/:action", component: SourcePoint, meta: {section: "SourcePoints", title: "Create sourcePoint"}});
 
 // Job
 routes.push({path: "/job/:action/:identifier", component: Job, meta: {section: "Jobs", title: "View Job"}});
