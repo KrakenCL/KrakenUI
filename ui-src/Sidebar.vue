@@ -90,7 +90,7 @@
 
                 <!-- SourcePoints section -->
                 <li class="kraken-ui-sidebar__menu-section">
-                    <div class="kraken-ui-sidebar__menu-section-header">SourcePoints <a class="kraken-ui-sidebar__menu-item-icon" href="#/sourcePointcreate" rel="noopener" title="Add new data source"><ui-icon>add_circle_outline</ui-icon></a></div>
+                    <div class="kraken-ui-sidebar__menu-section-header">SourcePoints <a class="kraken-ui-sidebar__menu-item-icon" href="#/sourcePoint/create" rel="noopener" title="Add new data source"><ui-icon>add_circle_outline</ui-icon></a></div>
                     <ul class="kraken-ui-sidebar__menu-section-links">
                         <li v-for="sourcePoint in sourcePoints" :key="sourcePoint.path">
                             <router-link

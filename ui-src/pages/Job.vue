@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import vueCustomScrollbar from 'vue-custom-scrollbar'
+import vueCustomScrollbar from 'vue-custom-scrollbar';
 import UiCollapsible from 'src/UiCollapsible.vue';
 import UiTextbox from 'src/UiTextbox.vue';
 import UiSelect from 'src/UiSelect.vue';
