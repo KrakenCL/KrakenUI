@@ -1,10 +1,7 @@
 <template>
 <li>
-    <div
-      :class="{folder: isFolder}"
-      @click="click"
-      >
-      <span v-if="isFolder" @click="toggle"><ui-icon :icon="icon"></ui-icon></span><span v-else><ui-icon icon="attach_file" size="small"></ui-icon></span>{{ model.name }}
+    <div :class="{folder: isFolder}">
+        <span v-if="isFolder" @click="toggle"><ui-icon :icon="icon"></ui-icon></span><span v-else><ui-icon class="ui-icon-attachment" icon="attach_file"></ui-icon></span><span @click="click">{{ model.name }}</span><span v-if="canDelete" @click="removeFolder"><ui-icon class="ui-icon-delete" icon="delete"></ui-icon></span>
     </div>
     <ul v-show="open" v-if="isFolder">
         <ui-tree-item
@@ -12,7 +9,7 @@
         v-for="(model, index) in model.children"
         :key="index"
         :model="model"
-        @didSelect="select"
+        @didReceiveEvent="select"
         >
       </ui-tree-item>
     </ul>
@@ -27,12 +24,20 @@ export default {
 
     props: {
         model: Object,
-        didSelect: Function
+        didReceiveEvent: Function
     },
 
     computed: {
         isFolder: function () {
             return this.model.children && this.model.children.length
+        },
+        canDelete(){
+            if (this.isFolder) {
+                return this.model.allowedOperations.indexOf("delete") > -1
+            } else {
+                return false
+            }
+            
         },
         icon() {
             return (this.open ? 'keyboard_arrow_down' : 'keyboard_arrow_right');
@@ -43,13 +48,19 @@ export default {
             if (this.isFolder) {
                 this.open = !this.open
             }
+            this.$emit('didReceiveEvent', this.open ? 'ufold' : 'fold', this.model);
         },
-        select(e) {
-            this.$emit('didSelect', e);
+        removeFolder(e) {
+            if (this.isFolder && this.canDelete) {
+                this.$emit('didReceiveEvent', 'delete', this.model);    
+            }            
+        },
+        select(event, item) {
+            this.$emit('didReceiveEvent', event, item);
         },
         click(e) {
             if (this.isFolder) {
-                this.$emit('didSelect', this.model);
+                this.$emit('didReceiveEvent', 'select', this.model);
             }
         }
     },
@@ -65,6 +76,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import './styles/imports.scss';
+
 body {
   font-family: Menlo, Consolas, monospace;
   color: #444;
@@ -75,6 +88,18 @@ body {
 .folder {
   font-weight: bold;
   font-size: 1.0rem;
+}
+.ui-icon-delete {
+        font-size: rem(20px);
+        margin-left: rem(10px);
+        margin-right: rem(10px);
+        color: lightcoral;
+}
+.ui-icon-attachment {
+        font-size: rem(18px);
+        margin-left: rem(5px);
+        margin-right: rem(5px);
+        color: lightblue;
 }
 ul {
   padding-left: 2.5em;

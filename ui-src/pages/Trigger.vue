@@ -96,14 +96,12 @@
 import UiTextbox from 'src/UiTextbox.vue';
 import UiSelect from 'src/UiSelect.vue';
 import UiSwitch from 'src/UiSwitch.vue';
-import UiButton from 'src/UiButton.vue';
 import UiAlert from 'src/UiAlert.vue';
 
 export default {
     components: {
         UiTextbox,
         UiSwitch,
-        UiButton,
         UiSelect,
         UiAlert
     },

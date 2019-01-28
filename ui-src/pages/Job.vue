@@ -16,7 +16,8 @@
             </tbody>
         </table>
         <br/>
-        <ui-button 
+        <ui-button
+            color="orange"
             icon="timeline"
             size="normal"
         >
