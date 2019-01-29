@@ -10,7 +10,7 @@
 
         <div class="kraken-ui-sidebar__scrollable">
             <div class="kraken-ui-sidebar__description">
-                <p>Continuous Learning, Integration, Deployment service.</p>
+                <p>KrakenCL is open source continuous learning, integration, deployment service. You can host it on your server or workstation for free. More details in Usage section:</p>
             </div>
 
             <ul class="kraken-ui-sidebar__menu">

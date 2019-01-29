@@ -23,8 +23,8 @@
                 v-model="trigger.model"
             ></ui-select>
             <ui-select
-                label="SourcePoint"
-                placeholder="Select one of sourcePoints"
+                label="Configuration"
+                placeholder="Select one of configurations"
                 :options="configurations"
                 v-model="trigger.configuration"
             ></ui-select>

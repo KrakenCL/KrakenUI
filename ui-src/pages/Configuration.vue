@@ -14,7 +14,10 @@
                 placeholder="--epoch, 1000, --paramX, 100"
                 v-model.lazy="extraArguments"
         ></ui-textbox>
-        <br>
+        <br/>
+        <ui-switch v-model="configuration.googleCloudPlatform.isEnabled" disabled>Use Google Cloud Platform</ui-switch>
+        <br/>
+        <br/>
         <table class="environment-table">
             <tbody>
                 <tr v-for="(environment, index) in configuration.extraEnvironment" :key="environment.key">
@@ -40,8 +43,9 @@
             </tbody>
         </table>
         <ui-icon-button color="primary" icon="add" size="normal" type="secondary" @click="addExtraEnvironment"></ui-icon-button>
-        <br/>
-        <br/>
+        <br/><br/>
+        <ui-button color="orange" icon="play_arrow">Run manually</ui-button>
+        <br/><br/>
         <ui-button color="primary" icon="save" @click="save">Save</ui-button>
         <ui-button color="green" icon="file_copy">Copy</ui-button>
         <ui-button color="red" icon="delete">Delete</ui-button>
@@ -86,6 +90,9 @@ export default {
                 name: 'Simple conf',
                 model: {
                     name: 'ResNet 1500'
+                },
+                googleCloudPlatform: {
+                    isEnabled: false,
                 },
                 extraEnvironment: [
                     {

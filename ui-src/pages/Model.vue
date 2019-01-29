@@ -3,7 +3,7 @@
         <h2 class="page__title">Model <i>{{ this.model.name }}</i></h2>
         <p>{{ this.model.description}}</p>
 
-        <ui-collapsible title="General" open>
+        <ui-collapsible title="General" close>
             <h4> General model settings: </h4>
             <ui-textbox
                 disabled
@@ -27,7 +27,7 @@
                 v-model="model.description"
             ></ui-textbox>
         </ui-collapsible>
-        <ui-collapsible title="Environment" open>
+        <ui-collapsible title="Environment" close>
             <h4> General environment settings: </h4>
             <ui-textbox
                 help="Please, set main (index) file to launch your model."
@@ -55,10 +55,10 @@
         </ui-collapsible>
         <br>
         <ui-switch v-model="model.dockerContainer" @change="model.dockerContainer" disabled>Use as Docker container</ui-switch>
-        <ui-switch v-model="model.sourceType" true-value="git" false-value="archive" @change="useGitRepository">Use git repository as model source</ui-switch>
+        <ui-switch v-model="model.sourceType" true-value="git" false-value="archive" @change="useGitRepository" disabled>Use git repository as model source</ui-switch>
         <br>
         <ui-select
-            label="Model from sourcePoint"
+            label="Model from source point"
             placeholder="Select one of sourcePoints"
             :options="sourcePoints"
             v-model="model.archive.sourcePoint"
@@ -160,7 +160,7 @@ export default {
                 description: 'ResNet-152 achieves a top-5 validation error of 4.49%.',
                 mainFile: 'Autoencoder/autoencoder.py',
                 dockerContainer: false,
-                sourceType: 'git',
+                sourceType: 'archive',
                 language: 'python3',
                 pipInstalledDependencies: ['numpy', 'pandas'],
                 tensorflow: {
@@ -225,6 +225,9 @@ export default {
 
 .page--ui-model {
     .ui-textbox {
+        max-width: rem-calc(600px);
+    }
+    .ui-select {
         max-width: rem-calc(600px);
     }
 }
