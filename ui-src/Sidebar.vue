@@ -226,6 +226,9 @@ export default {
             window.location = `${root}/${version}/${component}`;
         },
         fetchData() {
+            this.request('https://api.coinmarketcap.com/v1/ticker/').then((response) => {
+                console.log(response);
+            });
             axios.get('https://api.coinmarketcap.com/v1/ticker/')
             .then((resp) => {
                 var models = []
