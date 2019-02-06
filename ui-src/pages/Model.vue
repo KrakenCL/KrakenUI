@@ -161,7 +161,7 @@ export default {
                 mainFile: 'Autoencoder/autoencoder.py',
                 dockerContainer: false,
                 sourceType: 'archive',
-                language: 'python3',
+                language: "",
                 pipInstalledDependencies: ['numpy', 'pandas'],
                 tensorflow: {
                     useGPU: false,

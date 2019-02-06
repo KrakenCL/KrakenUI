@@ -31,12 +31,24 @@ Vue.mixin({
                 }
             }
         },
-        request(modelObject) {
+        request(modelObjectName, identifier) {
+            let url = this.globalDependencies().api.ormURL + modelObjectName + "/" + (identifier ? identifier :"")
+            console.log('load: ', modelObjectName, identifier, url);
             return new Promise((resolve, reject) => {
-                axios.get(modelObject, { 
-                    timeout: 5000, 
-                    headers: { } 
-                }).then(response => resolve(response)).catch(() => reject)
+                axios.get(url, { timeout: 3000, headers: { 'Content-Type': 'application/json' } })
+                .then((response) => {
+                    const containsKey = (obj, key ) => Object.keys(obj).includes(key)
+                    if (containsKey(response.data, 'value')){
+                        resolve(response.data['value'])
+                    } else if (containsKey(response.data, 'error')) {
+                        reject(response.data['error'])
+                    } else {
+                        reject({ error: 'Incorrect response format'})
+                    }
+                    
+                }).catch((error) => {
+                    reject(error)
+                }); 
             });
         }
     }

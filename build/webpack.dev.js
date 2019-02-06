@@ -35,7 +35,10 @@ const config = merge(base, {
         port: 9000,
         historyApiFallback: true,
         noInfo: true,
-        clientLogLevel: 'error'
+        clientLogLevel: 'error',
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
     },    
 }, { clone: false });
 

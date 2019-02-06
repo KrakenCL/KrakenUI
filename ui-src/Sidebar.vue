@@ -164,7 +164,7 @@ export default {
         return {
             
             menu,
-            models : [],
+            models : [{ title :  "Models", menu : [] }],
             jobs: [{
                 path: '/job/view/2',
                 component: Job,
@@ -226,45 +226,43 @@ export default {
             window.location = `${root}/${version}/${component}`;
         },
         fetchData() {
-            this.request('https://api.coinmarketcap.com/v1/ticker/').then((response) => {
+            this.request('mlmodel').then((response) => {
                 console.log(response);
-            });
-            axios.get('https://api.coinmarketcap.com/v1/ticker/')
-            .then((resp) => {
-                var models = []
-                for (let element of resp.data) {
-                    if (element['name'] == null) {
-                        continue
-                    }
+
+// var models = []
+//                 for (let element of resp.data) {
+//                     if (element['name'] == null) {
+//                         continue
+//                     }
                     
-                let model = {
-                    path: '/model/view/'+element['id'],
-                    component: Model,
-                    title: element['name'],
-                    configurations: [
-                        {
-                            path: '/configuration/view/1',
-                            component: Configuration,
-                            title: element['name']+ '-Conf1'
-                        },
-                        {
-                            path: '/configuration/view/2',
-                            component: Configuration,
-                            title: element['name']+ '-Conf2'
-                        }
-                    ]
-                } 
-                models.push(model)
-                }
-                let model_menu = { 
-                    title :  "Models",
-                    menu : models
-                 }
-                this.models = [model_menu]
-            })
-            .catch((err) => {
-                    console.log(err)
-            })
+//                 let model = {
+//                     path: '/model/view/'+element['id'],
+//                     component: Model,
+//                     title: element['name'],
+//                     configurations: [
+//                         {
+//                             path: '/configuration/view/1',
+//                             component: Configuration,
+//                             title: element['name']+ '-Conf1'
+//                         },
+//                         {
+//                             path: '/configuration/view/2',
+//                             component: Configuration,
+//                             title: element['name']+ '-Conf2'
+//                         }
+//                     ]
+//                 } 
+//                 models.push(model)
+//                 }
+//                 let model_menu = { 
+//                     title :  "Models",
+//                     menu : models
+//                  }
+//                 this.models = [model_menu]
+
+            }).catch((error) => {
+                console.log(error)
+            });
         }
     },
     created() {
