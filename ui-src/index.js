@@ -23,6 +23,46 @@ const router = new VueRouter({
 
 Vue.mixin({
     methods: {
+        // ViewController features
+        representationWillShow() {
+            var action = this.$route.params.action
+            if (typeof this.fetchRelatedCollectionsData === "function") {
+                this.fetchRelatedCollectionsData()
+            }
+            if (action == null) {
+                action = 'view'
+                if (typeof this.fetchData === "function") {
+                    this.fetchData()
+                }
+            } else if (action == 'view') {
+                if (typeof this.fetchData === "function") {
+                    this.fetchData()
+                }
+            } else if (action == 'create') {
+                if (typeof this.newModelObjectPrepare === "function") {
+                    this.newModelObjectPrepare()
+                }
+            }
+        },
+        notification(state, type, message) {
+            
+            if (typeof this.generalNotification === 'undefined') { return }
+            if (typeof this.generalNotificationType === 'undefined') { return }
+            if (typeof this.generalNotificationMessage === 'undefined') { return }
+            this.generalNotification = state === 'show'
+
+            if (type === 'success') {
+                this.generalNotificationType = type
+            } else if (type === 'warning') {
+                this.generalNotificationType = type
+            } else if (type === 'error') {
+                this.generalNotificationType = type
+            } else {
+                this.generalNotificationType = 'warning'
+            }
+            this.generalNotificationMessage = message
+            window.scrollTo(0,0);
+        },
         globalDependencies() {
             return {
                 api: {
